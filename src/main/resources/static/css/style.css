@@ -17,17 +17,49 @@
   /* padding: 0 20px; */
 }
 
+/* サイドバー上部 */
 .side-bar-header {
   background-color: #253141;
   height: 100px;
   padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+.header-name a {
+  font-size: 16px;
+  color: #FAFAFA;
+  text-decoration: none;
+}
+
+.create-room a {
+  font-size: 10px;
+  color: deepskyblue;
+  text-decoration: none;
+  /* text-align: center;
+  line-height: 10px; */
+  border: 1px solid lightblue;
+  padding: 14px;
+}
+
+/* サイドバー下部 */
 .rooms {
   background-color: #2F3E51;
   height: calc(100vh - 100px);
   padding: 0 20px;
+  overflow: scroll;
 }
+
+.room {
+  padding: 20px 0 40px;
+}
+
+.room-name a {
+  text-decoration: none;
+  color: white;
+}
+
 
 /* チャット画面 */
 .main-chat {
