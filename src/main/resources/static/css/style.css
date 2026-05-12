@@ -67,23 +67,102 @@
   width: calc(100vw - 300px);
   /* padding: 0 40px; */
 }
-
+/* チャット画面上部 */
 .chat-header {
   background-color: #FFFFFF;
   height: 100px;
   padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
 }
-
+.header-title {
+  color: #333;
+  font-size: 24px;
+  margin-top: 36px;
+}
+.header-button {
+  margin-top: 40px;
+}
+.header-button a {
+  text-decoration: none;
+  color: darkred;
+  border: 1px solid darkred;
+  padding: 20px;
+}
+/* チャット画面中央 */
 .messages {
   background-color: #FAFAFA;
   height: calc(100vh - 100px - 90px);
   /* padding-top: 46px; */
   padding: 46px 40px 0;
+  overflow: scroll;
 }
-
+.message {
+  margin-top: 10px;
+  /* margin-bottom: 40px; */
+}
+.upper-message {
+  display: flex;
+  /* margin-top: 10px; */
+}
+.message-user {
+  color: #434A54;
+  font-size: 16px;
+}
+.message-date {
+  color: #999;
+  font-size: 12px;
+  margin-left: 10px;
+}
+.lower-message {
+  margin-top: 10px;
+}
+.message-content {
+  color: #434A54;
+  font-size: 14px;
+  margin-bottom: 40px;
+}
+/* チャット画面下部 */
 .form {
   background-color: #DDDDDD;
   height: 90px;
   /* padding: 20px 0; */
   padding: 20px 40px;
+  display: flex;
+  /* justify-content: space-between; */
+}
+.form-input {
+  background-color: white;
+  width: 100%;
+  display: flex;
+}
+.form-message {
+  /* background-color: white; */
+  padding-left: 10px;
+  border: none;
+  height: 50px;
+  /* text-align: center; */
+  width: 100%;
+}
+.form-submit {
+  border: none;
+  font-size: 16px;
+  color: white;
+  background-color: #38AEF0;
+  margin-left: 15px;
+  padding: 0 20px;
+  height: 50px;
+  /* text-align: center; */
+}
+.form-image {
+  font-size: 12px;
+  background-color: lightblue;
+  color: white;
+  padding: 12px;
+  width: 60px;
+  margin: 5px 10px;
+  text-align: center;
+}
+.hidden {
+  display: none;
 }
