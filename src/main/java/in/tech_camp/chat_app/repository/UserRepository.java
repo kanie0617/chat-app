@@ -25,4 +25,14 @@ public interface UserRepository {
   //DBに保存されているユーザーの情報を更新
   @Update("UPDATE users SET name = #{name}, email = #{email} WHERE id = #{id}")
   void update(UserEntity user);
+
+  //メールアドレスが使用済みであるかどうかを確認するメソッドを定義
+  @Select("SELECT EXISTS(SELECT 1 FROM users WHERE email = #{email})")
+  boolean existsByEmail(String email);
+
+  //指定のユーザーID以外でメールアドレスが使われていないかを確認するメソッドを定義
+  // @Select("SELECT EXISTS(SELECT 1 FROM users WHERE email = #{email} AND id != #{userId})")
+  // boolean existsByEmailAndIdNot(String email, Integer userId);
+  @Select("SELECT COUNT (*) > 0 FROM users WHERE email = #{email} AND id != #{userId}")
+  boolean existsByEmailExcludingCurrent(String email, Integer userId);
 }
