@@ -1,12 +1,18 @@
 package in.tech_camp.chat_app.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import in.tech_camp.chat_app.custom_user.CustomUserDetail;
+import in.tech_camp.chat_app.entity.RoomEntity;
+import in.tech_camp.chat_app.entity.RoomUserEntity;
 import in.tech_camp.chat_app.entity.UserEntity;
+import in.tech_camp.chat_app.repository.RoomUserRepository;
 import in.tech_camp.chat_app.repository.UserRepository;
 import lombok.AllArgsConstructor;
 
@@ -15,6 +21,8 @@ import lombok.AllArgsConstructor;
 public class MessageController {
   private final UserRepository userRepository;
 
+  private final RoomUserRepository roomUserRepository;
+
   @GetMapping("/")
   public String showMessages(@AuthenticationPrincipal CustomUserDetail currentUser, Model model){
     // 1. 現在ログインしている人のIDを、セッション（Security）から取り出す
@@ -22,6 +30,18 @@ public class MessageController {
     UserEntity user = userRepository.findById(currentUser.getId());
     // 3. 検索結果を "user" という名前で画面に渡す
     model.addAttribute("user",user);
+
+    //サイドバーに現在ログインしているユーザーが所属しているチャットルーム名を表示する
+    // 1.現在ログインしているユーザーのidから部屋の名前を取り出す所属しているチャットルームのエンティティを取り出す
+    //リポジトリを使って、自分が所属する「中間データ（ペア）」を全部持ってくる。
+    // ログインユーザーが登録されているレコードをすべて取得
+    List<RoomUserEntity> roomUserEntities = roomUserRepository.findByUserId(currentUser.getId());
+    // 中間テーブルのリストから部屋の名前のリストを抽出して取り出す
+    List<RoomEntity> roomList = roomUserEntities.stream()//1．streamAPIを開始
+      .map(RoomUserEntity::getRoom)// 2. 中間Entityから「Room」だけを取り出す
+      .collect(Collectors.toList());// 3. 取り出したRoomをリストにまとめる
+    // 取り出した部屋の名前リスト（roomList）を"rooms"という名前でModelに入れる
+    model.addAttribute("rooms", roomList);
     return "messages/index";
   }
 }
