@@ -33,6 +33,24 @@ public class RoomController {
 
   private final RoomUserRepository roomUserRepository;
 
+  //トップページ表示
+  @GetMapping("/")
+  public String index(@AuthenticationPrincipal CustomUserDetail currentUser, Model model){
+    //現在ログインしているユーザーの情報をビューに渡す
+    UserEntity user = userRepository.findById(currentUser.getId());
+    model.addAttribute("user", user);
+
+    //サイドバーに現在ログインしているユーザーが所属しているチャットルーム名を表示する
+    List<RoomUserEntity> roomUserEntities = roomUserRepository.findByUserId(currentUser.getId());
+    // 中間テーブルのリストから部屋の名前のリストを抽出して取り出す
+    List<RoomEntity> roomList = roomUserEntities.stream()//1．streamAPIを開始
+      .map(RoomUserEntity::getRoom)// 2. 中間Entityから「Room」だけを取り出す
+      .collect(Collectors.toList());// 3. 取り出したRoomをリストにまとめる
+    // 取り出した部屋の名前リスト（roomList）を"rooms"という名前でModelに入れる
+    model.addAttribute("rooms", roomList);
+    return "rooms/index";
+  }
+
   //新規チャットルーム作成ページ表示
   @GetMapping("/rooms/new")
   public String showRoomNew (@AuthenticationPrincipal CustomUserDetail currentUser, Model model){

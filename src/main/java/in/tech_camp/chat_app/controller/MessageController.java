@@ -23,7 +23,7 @@ public class MessageController {
 
   private final RoomUserRepository roomUserRepository;
 
-  @GetMapping("/")
+  @GetMapping("/message")
   public String showMessages(@AuthenticationPrincipal CustomUserDetail currentUser, Model model){
     // 1. 現在ログインしている人のIDを、セッション（Security）から取り出す
     // 2. そのIDを使って、最新のユーザー情報をDBから検索する
