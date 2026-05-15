@@ -48,15 +48,15 @@
     </div>
   </div>
 
-  <div class="form">
+  <form th:action="@{/rooms/{roomId}/messages(roomId=${roomId})}" th:object="${messageForm}" method="post" class="form">
     <div class="form-input">
-      <input type="text" placeholder="Type a message" class="form-message">
+      <input th:field="*{content}" type="text" placeholder="Type a message" class="form-message">
       <label class="form-image">
         <span class="image-file">画像</span>
         <input type="file" class="hidden">
       </label>
     </div>
     <input type="submit" value="送信" class="form-submit">
-  </div>
+  </form>
 </div>
 </html>
