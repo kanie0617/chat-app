@@ -1,5 +1,6 @@
 package in.tech_camp.chat_app.repository;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -17,4 +18,8 @@ public interface RoomRepository {
   //ルームidでRoomEntityを取得するメソッド
   @Select("SELECT * FROM rooms WHERE id = #{id}")
   RoomEntity findById(Integer id);
+
+  //ルームを削除するメソッド
+  @Delete("DELETE FROM rooms WHERE id = #{id}")
+  void deleteById(Integer id);
 }
