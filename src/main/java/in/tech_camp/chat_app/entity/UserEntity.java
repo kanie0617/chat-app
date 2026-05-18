@@ -13,4 +13,6 @@ public class UserEntity {
 
   //1つのUserEntityからは複数のRoomUserEntityに紐づくのでRoomUserEntity型のリストを用意  
   private List<RoomUserEntity> roomUsers;
+  // 1ユーザーに対して複数のメッセージを投稿可能→UserEntityから関連するメッセージのリストを受け取れるようにフィールドを定義
+  private List<MessageEntity> messages;
 }
