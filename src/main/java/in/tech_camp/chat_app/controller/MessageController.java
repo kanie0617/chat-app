@@ -57,7 +57,10 @@ public class MessageController {
     //メッセージ投稿フォームのビューを渡す
     model.addAttribute("messageForm", new MessageForm());
     //パスのroomIdをモデルに渡す
-    model.addAttribute("roomId",roomId);
+    // model.addAttribute("roomId",roomId);
+    //roomIdをRoomEntityで渡す
+    RoomEntity room = roomRepository.findById(roomId);
+    model.addAttribute("room", room);
 
     //ルームに投稿された投稿を表示
     List<MessageEntity> messages = messageRepository.findByRoomId(roomId);
