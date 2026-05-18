@@ -26,6 +26,9 @@
       <div class="lower-message">
         <div th:text="${message.content}" class="message-content">メッセージ文</div>
       </div>
+      <div th:if="${message.image}">
+        <img th:src="@{${message.image}}" alt="メッセージ画像" style="width: 500px; height: 500px;">
+      </div>
     </div>
   </div>  
 
