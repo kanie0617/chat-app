@@ -85,9 +85,11 @@ public class MessageController {
 
   //メッセージフォームからのポストリクエストを受け取る
   @PostMapping("/rooms/{roomId}/messages")
-  public String saveMessage(@PathVariable("roomId") Integer roomId, @ModelAttribute("messageForm") @Validated(ValidationOrder.class) MessageForm messageForm, BindingResult bindingResult, @AuthenticationPrincipal CustomUserDetail currentUser) {
+  public String saveMessage(@PathVariable("roomId") Integer roomId, @ModelAttribute("messageForm") MessageForm messageForm, BindingResult bindingResult, @AuthenticationPrincipal CustomUserDetail currentUser) {
 
-    // バリデーションエラーのチェック
+    //テキストと画像がどちらかがなかったらエラーのメソッドを呼び出す
+    messageForm.validateMessage(bindingResult);
+    // エラーのチェック
     if(bindingResult.hasErrors()){
       return "redirect:/rooms/" + roomId +"/messages";
     }
