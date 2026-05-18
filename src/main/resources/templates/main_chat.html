@@ -19,7 +19,7 @@
     <div th:each="message : ${messages}" class="message">
       <div class="upper-message">
         <div th:text="${message.user.name}" class="message-user">ユーザー名</div>
-        <div th:text="${message.createdAt}" class="message-date">投稿日時</div>
+        <div th:text="${#dates.format(message.createdAt, 'yyyy/MM/dd HH:mm:ss')}" class="message-date">投稿日時</div>
       </div>
       <div class="lower-message">
         <div th:text="${message.content}" class="message-content">メッセージ文</div>
